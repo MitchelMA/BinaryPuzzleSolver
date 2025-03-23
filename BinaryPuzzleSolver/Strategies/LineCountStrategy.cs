@@ -8,19 +8,20 @@ public class LineCountStrategy : LineStrategy
     {
         var horizontal = field[yIndex];
         var openCount = horizontal.Count(x => x == FieldValues.Open);
-        if (openCount > 1)
+        if (openCount is > 2 or 0)
             return false;
 
         var width = horizontal.Length;
         var oneCount = horizontal.Count(x => x == FieldValues.One);
+        var zeroCount = width - oneCount - openCount;
+        var diff = oneCount - zeroCount;
+        if (diff == 0)
+            return false;
 
+        var underRepresented = diff > 0 ? FieldValues.Zero : FieldValues.One;
         for (int i = 0; i < width; i++)
-        {
-            if (horizontal[i] != FieldValues.Open)
-                continue;
-            
-            horizontal[i] = (oneCount == width / 2) ? FieldValues.Zero : FieldValues.One;
-        }
+            if (horizontal[i] == FieldValues.Open)
+                horizontal[i] = underRepresented;
 
         return true;
     }
@@ -29,19 +30,21 @@ public class LineCountStrategy : LineStrategy
     {
         var vertical = field.Select(x => x[xIndex]).ToArray();
         var openCount = vertical.Count(x => x == FieldValues.Open);
-        if (openCount > 1)
+        if (openCount is > 2 or 0)
             return false;
 
         var height = vertical.Length;
         var oneCount = vertical.Count(x => x == FieldValues.One);
+        var zeroCount = height - oneCount - openCount;
+        var diff = oneCount - zeroCount;
 
+        if (diff == 0)
+            return false;
+
+        var underRepresented = diff > 0 ? FieldValues.Zero : FieldValues.One;
         for (int i = 0; i < height; i++)
-        {
-            if (vertical[i] != FieldValues.Open)
-                continue;
-
-            field[i][xIndex] = (oneCount == height / 2) ? FieldValues.Zero : FieldValues.One;
-        }
+            if (vertical[i] == FieldValues.Open)
+                field[i][xIndex] = underRepresented;
 
         return true;
     }
