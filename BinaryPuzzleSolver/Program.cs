@@ -38,17 +38,15 @@ internal static class Program
     private static Task<int> SolveCommandHandler(FileInfo fileInfo, StrategyIterations iterationKind)
     {
         var reader = new FieldReader(fileInfo);
+        
         try
         {
             var contents = reader.ReadFile();
-            var solver = new Solver(contents);
-
-            solver
+            var solver = new Solver(contents)
                 .AddStrategy(new ConsecutiveZeroStrategy())
                 .AddStrategy(new ConsecutiveOneStrategy())
                 .AddStrategy(new GapStrategy())
                 .AddStrategy(new LineCountStrategy());
-
 
             var solvedField = solver.Solve(iterationKind);
             Console.WriteLine(solvedField.Display());
