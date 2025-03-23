@@ -50,7 +50,6 @@ internal static class Program
 
             var solvedField = solver.Solve(iterationKind);
             Console.WriteLine(solvedField.Display());
-
         }
         catch (Exception e)
         {
