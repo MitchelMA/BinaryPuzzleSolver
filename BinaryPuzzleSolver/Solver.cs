@@ -26,14 +26,14 @@ public class Solver
 
     public FieldValues[][] Solve(StrategyIterations iterationType)
     {
-        Action solver = iterationType switch
+        Action solverKind = iterationType switch
         {
             StrategyIterations.EarlyReturn => EarlyReturnSolver,
             StrategyIterations.IterateEach => IterateEachSolver,
             _ => throw new ArgumentOutOfRangeException(nameof(iterationType), iterationType, null)
         };
 
-        solver.Invoke();
+        solverKind.Invoke();
         return _field;
     }
 

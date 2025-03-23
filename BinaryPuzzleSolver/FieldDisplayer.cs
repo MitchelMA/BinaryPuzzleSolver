@@ -7,24 +7,25 @@ public static class FieldDisplayer
 {
     public static string Display(this FieldValues[][] values)
     {
-         var builder = new StringBuilder();
-         foreach (var line in values)
-         {
-             foreach (var item in line)
-             {
-                 var displayCharacter = item switch
-                 {
-                     FieldValues.Open => ' ',
-                     FieldValues.Zero => '0',
-                     FieldValues.One => '1',
-                     _ => throw new ArgumentOutOfRangeException()
-                 };
-                 builder.Append(displayCharacter);
-             }
+        var width = values[0].Length;
+        var builder = new StringBuilder();
+        foreach (var line in values)
+        {
+            foreach (var item in line)
+            {
+                var displayCharacter = item switch
+                {
+                    FieldValues.Open => "   ",
+                    FieldValues.Zero => " 0 ",
+                    FieldValues.One => " 1 ",
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+                builder.Append(displayCharacter);
+            }
  
-             builder.AppendLine();
-         }
+            builder.AppendLine();
+        }
  
-         return builder.ToString();   
+        return builder.ToString();   
     }
 }

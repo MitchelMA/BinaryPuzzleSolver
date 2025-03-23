@@ -11,6 +11,7 @@ internal static class Program
         var fileArgument = new Argument<FileInfo>("filepath", "The binary file to be solved and/or shown");
 
         var iterationTypeOption = new Option<StrategyIterations>("--iterationKind", () => StrategyIterations.EarlyReturn);
+        iterationTypeOption.AddAlias("-i");
         var solveCommand = new Command("solve")
         {
             fileArgument,
@@ -34,21 +35,32 @@ internal static class Program
         return await rootCommand.InvokeAsync(args);
     }
 
-    private static async Task<int> SolveCommandHandler(FileInfo fileInfo, StrategyIterations iterationKind)
+    private static Task<int> SolveCommandHandler(FileInfo fileInfo, StrategyIterations iterationKind)
     {
         var reader = new FieldReader(fileInfo);
-        var contents = reader.ReadFile();
-        var solver = new Solver(contents);
+        try
+        {
+            var contents = reader.ReadFile();
+            var solver = new Solver(contents);
 
-        solver
-            .AddStrategy(new ZeroStrategy())
-            .AddStrategy(new OneStrategy());
+            solver
+                .AddStrategy(new ConsecutiveZeroStrategy())
+                .AddStrategy(new ConsecutiveOneStrategy())
+                .AddStrategy(new GapStrategy())
+                .AddStrategy(new LineCountStrategy());
 
 
-        var solvedField = solver.Solve(iterationKind);
-        Console.WriteLine(solvedField.Display());
+            var solvedField = solver.Solve(iterationKind);
+            Console.WriteLine(solvedField.Display());
+
+        }
+        catch (Exception e)
+        {
+            Console.Error.WriteLine($"Failed to solve: {e}");
+            return Task.FromResult(1);
+        }
         
-        return await Task.FromResult(0);
+        return Task.FromResult(0);
     }
 
     private static Task<int> DisplayCommandHandler(FileInfo fileInfo)

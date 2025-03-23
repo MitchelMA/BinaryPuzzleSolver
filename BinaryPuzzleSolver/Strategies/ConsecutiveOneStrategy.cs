@@ -2,7 +2,7 @@ using BinaryPuzzleSolver.Enums;
 
 namespace BinaryPuzzleSolver.Strategies;
 
-public class OneStrategy : LineStrategy
+public class ConsecutiveOneStrategy : LineStrategy
 {
     protected override bool ProcessHorizontal(int yIndex, FieldValues[][] field)
     {
