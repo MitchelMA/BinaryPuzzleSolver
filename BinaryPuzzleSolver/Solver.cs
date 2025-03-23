@@ -5,23 +5,18 @@ namespace BinaryPuzzleSolver;
 
 public class Solver
 {
-    private FieldValues[][] _field;
-    private List<Strategy> _strategies = new();
+    private readonly FieldValues[][] _field;
+    private readonly List<Strategy> _strategies = new();
     
     public Solver(FieldValues[][] field)
     {
         _field = field;
     }
-    
-    public override string ToString()
-    {
-        return _field.Display();
-    }
 
-    public Solver AddStrategy(Strategy addition)
+    public Solver AddStrategy<T>()
+        where T : Strategy, new()
     {
-        _strategies.Add(addition);
-        return this;
+        return AddStrategy(new T());
     }
 
     public FieldValues[][] Solve(StrategyIterations iterationType)
@@ -35,6 +30,17 @@ public class Solver
 
         solverKind.Invoke();
         return _field;
+    }
+    
+    public override string ToString()
+    {
+        return _field.Display();
+    }
+    
+    private Solver AddStrategy(Strategy addition)
+    {
+        _strategies.Add(addition);
+        return this;
     }
 
     private void EarlyReturnSolver()

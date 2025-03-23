@@ -43,10 +43,10 @@ internal static class Program
         {
             var contents = reader.ReadFile();
             var solver = new Solver(contents)
-                .AddStrategy(new ConsecutiveZeroStrategy())
-                .AddStrategy(new ConsecutiveOneStrategy())
-                .AddStrategy(new GapStrategy())
-                .AddStrategy(new LineCountStrategy());
+                .AddStrategy<ConsecutiveZeroStrategy>()
+                .AddStrategy<ConsecutiveOneStrategy>()
+                .AddStrategy<GapStrategy>()
+                .AddStrategy<LineCountStrategy>();
 
             var solvedField = solver.Solve(iterationKind);
             Console.WriteLine(solvedField.Display());
