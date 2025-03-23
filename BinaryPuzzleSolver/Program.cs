@@ -40,7 +40,9 @@ internal static class Program
         var contents = reader.ReadFile();
         var solver = new Solver(contents);
 
-        solver.AddStrategy(new ZeroStrategy());
+        solver
+            .AddStrategy(new ZeroStrategy())
+            .AddStrategy(new OneStrategy());
 
 
         var solvedField = solver.Solve(iterationKind);
