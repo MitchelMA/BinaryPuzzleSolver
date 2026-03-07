@@ -17,9 +17,9 @@ public class BinaryController : Controller
     
     [HttpPost("")]
     [HttpPost("[action]")]
-    public IActionResult Index([FromBody] FieldValues[] initial)
+    public IActionResult Index([FromBody] FullFledgedBinaryAction action)
     {
-        var solver = new Solver.Solver(initial)
+        var solver = new Solver.Solver(action.Initial)
             .AddStrategy<ConsecutiveOneStrategy>()
             .AddStrategy<ConsecutiveZeroStrategy>()
             .AddStrategy<GapStrategy>()
