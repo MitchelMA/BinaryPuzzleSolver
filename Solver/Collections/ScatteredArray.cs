@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 namespace Solver.Collections;
 
 public readonly ref struct ScatteredArray<T>
-    where T : struct
 {
     private readonly ref T _refArray;
     private readonly int[] _indices;
@@ -29,10 +28,10 @@ public readonly ref struct ScatteredArray<T>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get
         {
-            if ((uint)index >= (uint)this.Length)
+            if ((uint)index >= (uint)Length)
                 throw new IndexOutOfRangeException(nameof(index));
             
-            return ref Unsafe.Add<T>(ref this._refArray, (IntPtr)(uint)_indices[index]);
+            return ref Unsafe.Add(ref _refArray, (nint)(uint)_indices[index]);
         }
     }
 
