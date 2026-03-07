@@ -21,8 +21,9 @@ public abstract class LineStrategy : Strategy
             var idxRange =
                 VerticalIndexGenerator(columnIndex, fieldSideLength, field.Length)
                 .ToArray();
-            
-            ProcessLine(new ScatteredArray<FieldValues>(field, idxRange));
+
+            if (ProcessLine(new ScatteredArray<FieldValues>(field, idxRange)))
+                return true;
         }
 
         return false;
@@ -30,7 +31,7 @@ public abstract class LineStrategy : Strategy
     
     protected abstract bool ProcessLine(ScatteredArray<FieldValues> line);
     
-    private IEnumerable<int> VerticalIndexGenerator(int start, int stepSize, int max)
+    private static IEnumerable<int> VerticalIndexGenerator(int start, int stepSize, int max)
     {
         var lastValue = start;
 
