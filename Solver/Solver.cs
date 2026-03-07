@@ -5,10 +5,10 @@ namespace Solver;
 
 public class Solver
 {
-    private readonly FieldValues[][] _field;
+    private readonly FieldValues[] _field;
     private readonly HashSet<Strategy> _strategies = new();
     
-    public Solver(FieldValues[][] field)
+    public Solver(FieldValues[] field)
     {
         _field = field;
     }
@@ -19,7 +19,7 @@ public class Solver
         return AddStrategy(new T());
     }
 
-    public FieldValues[][] Solve(StrategyIterations iterationType)
+    public FieldValues[] Solve(StrategyIterations iterationType)
     {
         Action solverKind = iterationType switch
         {

@@ -21,7 +21,7 @@ public class FieldReader
     /// </summary>
     /// <returns></returns>
     /// <exception cref="FileNotFoundException"></exception>
-    public FieldValues[][] ReadFile()
+    public FieldValues[] ReadFile()
     {
         if (!_fileInfo.Exists)
             throw new FileNotFoundException($"The given `{_fileInfo.FullName} file doesn't exist");
@@ -30,24 +30,27 @@ public class FieldReader
         using StreamReader reader = new StreamReader(stream);
 
         List<string> lines = [];
-        while(reader.ReadLine() is { } line)
+
+        while (reader.ReadLine() is { } line)
             lines.Add(line);
 
-        FieldValues[][] values = new FieldValues[lines.Count][];
-        for (int i = 0; i < lines.Count; i++)
+        FieldValues[] values = new FieldValues[lines.Count * lines.Count];
+        for (var i = 0; i < lines.Count; i++)
         {
             var currentLine = lines[i];
-            values[i] = new FieldValues[currentLine.Length];
-            for (int j = 0; j < currentLine.Length; j++)
+
+            for (var j = 0; j < currentLine.Length; j++)
             {
+                var idx = i * lines.Count + j;
                 var character = currentLine[j];
+
                 if (character == '-')
                 {
-                    values[i][j] = FieldValues.Open;
+                    values[idx] = FieldValues.Open;
                     continue;
                 }
 
-                values[i][j] = (FieldValues)(character - '0');
+                values[idx] = (FieldValues)(character - '0');
             }
         }
 

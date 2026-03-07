@@ -1,60 +1,31 @@
+using Solver.Collections;
 using Solver.Enums;
 
 namespace Solver.Strategies;
 
 public class ConsecutiveOneStrategy : LineStrategy
 {
-    protected override bool ProcessHorizontal(int yIndex, FieldValues[][] field)
+    protected override bool ProcessLine(ScatteredArray<FieldValues> line)
     {
-        var width = field.Length;
         var affectedLine = false;
 
-        for (int i = 0; i < width - 1; i++)
+        for (var i = 0; i < line.Length - 1; i++)
         {
-            var current = field[yIndex][i];
-            var right = field[yIndex][i + 1];
-
-            if (current != FieldValues.One || current != right)
+            var current = line[i];
+            var next = line[i + 1];
+            
+            if (current != FieldValues.One || current != next)
                 continue;
 
-            if (i > 0 && field[yIndex][i - 1] == FieldValues.Open)
+            if (i > 0 && line[i - 1] == FieldValues.Open)
             {
-                field[yIndex][i - 1] = FieldValues.Zero;
+                line[i - 1] = FieldValues.Zero;
                 affectedLine = true;
             }
 
-            if (i < width - 2 && field[yIndex][i + 2] == FieldValues.Open)
+            if (i < line.Length - 2 && line[i + 2] == FieldValues.Open)
             {
-                field[yIndex][i + 2] = FieldValues.Zero;
-                affectedLine = true;
-            }
-        }
-
-        return affectedLine;
-    }
-
-    protected override bool ProcessVertical(int xIndex, FieldValues[][] field)
-    {
-        var height = field.Length;
-        var affectedLine = false;
-
-        for (int i = 0; i < height - 1; i++)
-        {
-            var current = field[i][xIndex];
-            var below = field[i + 1][xIndex];
-
-            if (current != FieldValues.One || current != below)
-                continue;
-
-            if (i > 0 && field[i - 1][xIndex] == FieldValues.Open)
-            {
-                field[i - 1][xIndex] = FieldValues.Zero;
-                affectedLine = true;
-            }
-
-            if (i < height - 2 && field[i + 2][xIndex] == FieldValues.Open)
-            {
-                field[i + 2][xIndex] = FieldValues.Zero;
+                line[i + 2] = FieldValues.Zero;
                 affectedLine = true;
             }
         }

@@ -4,5 +4,5 @@ namespace Solver.Strategies;
 
 public abstract class Strategy
 {
-    public abstract bool Run(FieldValues[][] field);
+    public abstract bool Run(FieldValues[] field);
 }

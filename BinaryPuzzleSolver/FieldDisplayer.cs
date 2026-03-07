@@ -5,27 +5,28 @@ namespace BinaryPuzzleSolver;
 
 public static class FieldDisplayer
 {
-    public static string Display(this FieldValues[][] values)
+    public static string Display(this FieldValues[] values)
     {
-        var width = values[0].Length;
+        var count = values.Length;
+        var sideLength = Math.Sqrt(count);
         var builder = new StringBuilder();
-        foreach (var line in values)
+
+        for (var i = 0; i < count; i++)
         {
-            foreach (var item in line)
+            var displayCharacter = values[i] switch
             {
-                var displayCharacter = item switch
-                {
-                    FieldValues.Open => "   ",
-                    FieldValues.Zero => " 0 ",
-                    FieldValues.One => " 1 ",
-                    _ => throw new ArgumentOutOfRangeException()
-                };
-                builder.Append(displayCharacter);
-            }
- 
-            builder.AppendLine();
+                FieldValues.Open => "   ",
+                FieldValues.Zero => " 0 ",
+                FieldValues.One  => " 1 ",
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            
+            if (i % sideLength == 0 && i != 0)
+                builder.AppendLine();
+            
+            builder.Append(displayCharacter);
         }
- 
-        return builder.ToString();   
+
+        return builder.ToString();
     }
 }
