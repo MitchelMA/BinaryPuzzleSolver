@@ -53,7 +53,7 @@ public class LineCountStrategy : LineStrategy
 
     protected override bool ProcessLine(ScatteredArray<FieldValues> line)
     {
-        var halfWidth = line.Length / 2;
+        var halfLength = line.Length / 2;
         var oneCount = 0;
         var zeroCount = 0;
 
@@ -65,10 +65,10 @@ public class LineCountStrategy : LineStrategy
 
         var openCount = line.Length - oneCount - zeroCount;
 
-        if (openCount == 0 || openCount > halfWidth)
+        if (openCount == 0 || openCount > halfLength)
             return false;
 
-        if (oneCount != halfWidth && zeroCount != halfWidth)
+        if (oneCount != halfLength && zeroCount != halfLength)
             return false;
 
         var underRepresented = oneCount > zeroCount ? FieldValues.Zero : FieldValues.One;
