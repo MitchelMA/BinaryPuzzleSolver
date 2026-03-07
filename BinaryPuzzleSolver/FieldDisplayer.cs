@@ -1,5 +1,5 @@
 using System.Text;
-using BinaryPuzzleSolver.Enums;
+using Solver.Enums;
 
 namespace BinaryPuzzleSolver;
 

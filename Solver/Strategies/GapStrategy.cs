@@ -1,6 +1,6 @@
-using BinaryPuzzleSolver.Enums;
+using Solver.Enums;
 
-namespace BinaryPuzzleSolver.Strategies;
+namespace Solver.Strategies;
 
 public class GapStrategy : LineStrategy
 {

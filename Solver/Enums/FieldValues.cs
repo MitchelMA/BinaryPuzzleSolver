@@ -1,4 +1,4 @@
-namespace BinaryPuzzleSolver.Enums;
+namespace Solver.Enums;
 
 public enum FieldValues
 {

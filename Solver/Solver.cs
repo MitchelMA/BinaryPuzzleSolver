@@ -1,12 +1,12 @@
-using BinaryPuzzleSolver.Enums;
-using BinaryPuzzleSolver.Strategies;
+using Solver.Enums;
+using Solver.Strategies;
 
-namespace BinaryPuzzleSolver;
+namespace Solver;
 
 public class Solver
 {
     private readonly FieldValues[][] _field;
-    private readonly List<Strategy> _strategies = new();
+    private readonly HashSet<Strategy> _strategies = new();
     
     public Solver(FieldValues[][] field)
     {
@@ -32,11 +32,6 @@ public class Solver
         return _field;
     }
     
-    public override string ToString()
-    {
-        return _field.Display();
-    }
-    
     private Solver AddStrategy(Strategy addition)
     {
         _strategies.Add(addition);
@@ -49,10 +44,12 @@ public class Solver
         while (fieldRun)
         {
             fieldRun = false;
+
+            var outcomes = _strategies
+                .Select(strat => strat.Run(_field));
             
-            foreach (var strategy in _strategies)
+            foreach (var outcome in outcomes)
             {
-                var outcome = strategy.Run(_field);
                 fieldRun |= outcome;
                 
                 if (outcome)
@@ -66,10 +63,9 @@ public class Solver
         var fieldRun = true;
         while (fieldRun)
         {
-            fieldRun = false;
-            
-            foreach (var strategy in _strategies)
-                fieldRun |= strategy.Run(_field);
+            fieldRun = _strategies
+                .Aggregate(false,
+                    (current, strategy) => current | strategy.Run(_field));
         }
     }
 }

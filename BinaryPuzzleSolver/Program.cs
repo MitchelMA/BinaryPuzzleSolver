@@ -1,6 +1,6 @@
 ﻿using System.CommandLine;
-using BinaryPuzzleSolver.Enums;
-using BinaryPuzzleSolver.Strategies;
+using Solver.Enums;
+using Solver.Strategies;
 
 namespace BinaryPuzzleSolver;
 
@@ -42,7 +42,7 @@ internal static class Program
         try
         {
             var contents = reader.ReadFile();
-            var solver = new Solver(contents)
+            var solver = new Solver.Solver(contents)
                 .AddStrategy<ConsecutiveZeroStrategy>()
                 .AddStrategy<ConsecutiveOneStrategy>()
                 .AddStrategy<GapStrategy>()

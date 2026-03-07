@@ -1,4 +1,4 @@
-using BinaryPuzzleSolver.Enums;
+using Solver.Enums;
 
 namespace BinaryPuzzleSolver;
 
@@ -29,7 +29,7 @@ public class FieldReader
         using FileStream stream = _fileInfo.OpenRead();
         using StreamReader reader = new StreamReader(stream);
 
-        List<string> lines = new();
+        List<string> lines = [];
         while(reader.ReadLine() is { } line)
             lines.Add(line);
 
