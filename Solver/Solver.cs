@@ -18,6 +18,12 @@ public class Solver
     {
         return AddStrategy(new T());
     }
+    
+    public Solver AddStrategy(Strategy addition)
+    {
+        _strategies.Add(addition);
+        return this;
+    }
 
     public FieldValues[] Solve(StrategyIterations iterationType)
     {
@@ -44,12 +50,6 @@ public class Solver
         return _field;
     }
     
-    private Solver AddStrategy(Strategy addition)
-    {
-        _strategies.Add(addition);
-        return this;
-    }
-
     private void EarlyReturnSolver()
     {
         var fieldRun = true;

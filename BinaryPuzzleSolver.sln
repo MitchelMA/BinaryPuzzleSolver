@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryPuzzleSolver", "Binar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solver", "Solver\Solver.csproj", "{14FD9A0F-5DF3-44B2-B93E-8B58C20F123E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarySolverAPI", "BinarySolverAPI\BinarySolverAPI.csproj", "{BAEEF8DB-7182-4A29-A236-71C730395C5F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{14FD9A0F-5DF3-44B2-B93E-8B58C20F123E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14FD9A0F-5DF3-44B2-B93E-8B58C20F123E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14FD9A0F-5DF3-44B2-B93E-8B58C20F123E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAEEF8DB-7182-4A29-A236-71C730395C5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAEEF8DB-7182-4A29-A236-71C730395C5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAEEF8DB-7182-4A29-A236-71C730395C5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAEEF8DB-7182-4A29-A236-71C730395C5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
