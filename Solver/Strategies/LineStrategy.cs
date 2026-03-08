@@ -12,7 +12,7 @@ public abstract class LineStrategy : Strategy
         for (var rowIndex = 0; rowIndex < fieldSideLength; rowIndex++)
         {
             var idxRange = new Range(rowIndex * fieldSideLength, rowIndex * fieldSideLength + fieldSideLength);
-            if (ProcessLine(new ScatteredArray<FieldValues>(field, idxRange)))
+            if (ProcessLine(new ScatteredSpan<FieldValues>(field, idxRange)))
                 return true;
         }
 
@@ -22,14 +22,14 @@ public abstract class LineStrategy : Strategy
                 VerticalIndexGenerator(columnIndex, fieldSideLength, field.Length)
                 .ToArray();
 
-            if (ProcessLine(new ScatteredArray<FieldValues>(field, idxRange)))
+            if (ProcessLine(new ScatteredSpan<FieldValues>(field, idxRange)))
                 return true;
         }
 
         return false;
     }
     
-    protected abstract bool ProcessLine(ScatteredArray<FieldValues> line);
+    protected abstract bool ProcessLine(ScatteredSpan<FieldValues> line);
     
     private static IEnumerable<int> VerticalIndexGenerator(int start, int stepSize, int max)
     {

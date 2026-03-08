@@ -5,7 +5,7 @@ namespace Solver.Strategies;
 
 public class LineCountStrategy : LineStrategy
 {
-    protected override bool ProcessLine(ScatteredArray<FieldValues> line)
+    protected override bool ProcessLine(ScatteredSpan<FieldValues> line)
     {
         var halfLength = line.Length / 2;
         var oneCount = 0;

@@ -5,7 +5,7 @@ namespace Solver.Strategies;
 
 public class GapStrategy : LineStrategy
 {
-    protected override bool ProcessLine(ScatteredArray<FieldValues> line)
+    protected override bool ProcessLine(ScatteredSpan<FieldValues> line)
     {
         var affectedLine = false;
         

@@ -3,22 +3,26 @@ using System.Runtime.InteropServices;
 
 namespace Solver.Collections;
 
-public readonly ref struct ScatteredArray<T>
+public readonly ref struct ScatteredSpan<T>
 {
     private readonly ref T _refArray;
+    private readonly int _refLength;
     private readonly int[] _indices;
 
     public int Length => _indices.Length;
 
-    public ScatteredArray(T[] array, int[] indices)
+    public ScatteredSpan(T[] array, int[] indices)
     {
         _refArray = ref MemoryMarshal.GetArrayDataReference(array);
+        _refLength = array.Length;
         _indices = indices;
     }
 
-    public ScatteredArray(T[] array, Range range)
+    public ScatteredSpan(T[] array, Range range)
     {
         _refArray = ref MemoryMarshal.GetArrayDataReference(array);
+        _refLength = array.Length;
+        
         var bound = range.GetOffsetAndLength(array.Length);
         _indices = Enumerable.Range(bound.Offset, bound.Length).ToArray();
     }
@@ -28,7 +32,7 @@ public readonly ref struct ScatteredArray<T>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get
         {
-            if ((uint)index >= (uint)Length)
+            if ((uint)index >= (uint)Length || (uint)_indices[index] >= (uint)_refLength)
                 throw new IndexOutOfRangeException(nameof(index));
             
             return ref Unsafe.Add(ref _refArray, (nint)(uint)_indices[index]);
@@ -39,13 +43,13 @@ public readonly ref struct ScatteredArray<T>
 
     public ref struct Enumerator
     {
-        private readonly ScatteredArray<T> _arr;
+        private readonly ScatteredSpan<T> _arr;
 
         private int _index;
         
-        internal Enumerator(ScatteredArray<T> array)
+        internal Enumerator(ScatteredSpan<T> span)
         {
-            _arr = array;
+            _arr = span;
             _index = -1;
         }
 
