@@ -31,7 +31,8 @@ public class LastResortStrategy : Strategy
                 var innerProbeSolver = new Solver(fieldCopy)
                     .AddStrategy<ConsecutivesStrategy>()
                     .AddStrategy<GapStrategy>()
-                    .AddStrategy<LineCountStrategy>();
+                    .AddStrategy<LineCountStrategy>()
+                    .AddStrategy<CompareStrategy>();
 
                 innerProbeSolver.Solve(StrategyIterations.EarlyReturn);
 

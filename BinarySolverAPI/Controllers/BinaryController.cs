@@ -22,7 +22,9 @@ public class BinaryController : Controller
         var solver = new Solver.Solver(action.Initial)
             .AddStrategy<ConsecutivesStrategy>()
             .AddStrategy<GapStrategy>()
-            .AddStrategy<LineCountStrategy>();
+            .AddStrategy<LineCountStrategy>()
+            .AddStrategy<CompareStrategy>()
+            .AddStrategy<LastResortStrategy>();
 
         return HandleSolver(solver);
     }

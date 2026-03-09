@@ -30,10 +30,8 @@ public class CompareStrategy : Strategy
                 var toBeCorrected = rows[j].Span;
 
                 var outCome = CorrectLines(reference, toBeCorrected);
-                if (!outCome)
-                    continue;
-
-                return true;
+                if (outCome)
+                    return true;
             }
         }
         
@@ -49,10 +47,8 @@ public class CompareStrategy : Strategy
                 var toBeCorrected = columns[j].Span;
 
                 var outCome = CorrectLines(reference, toBeCorrected);
-                if (!outCome)
-                    continue;
-
-                return true;
+                if (outCome)
+                    return true;
             }
         }
         
@@ -65,17 +61,15 @@ public class CompareStrategy : Strategy
                 var toBeCorrected = rows[j].Span;
 
                 var outCome = CorrectLines(reference, toBeCorrected);
-                if (!outCome)
-                    continue;
+                if (outCome)
+                    return true;
 
                 reference = rows[j].Span;
                 toBeCorrected = columns[i].Span;
                 
                 outCome = CorrectLines(reference, toBeCorrected);
-                if (!outCome)
-                    continue;
-
-                return true;
+                if (outCome)
+                    return true;
             }
         }
 
@@ -89,7 +83,6 @@ public class CompareStrategy : Strategy
             (rowIdx * sideLength)..(rowIdx * sideLength + sideLength)
         );
     }
-
 
     private static ScatteredMemory<FieldValues> GetVertical(FieldValues[] field, int columnIdx, int sideLength)
     {
@@ -150,15 +143,17 @@ public class CompareStrategy : Strategy
 
         if (!outCome)
             return false;
-                
+
+        var changedCount = 0;
         for (var idx = 0; idx < corrected.Length; idx++)
         {
             if (corrected[idx] != FieldValues.Open)
                 continue;
 
             corrected[idx] = (FieldValues)Convert.ToInt32(!Convert.ToBoolean(corrected[idx]));
+            changedCount++;
         }
 
-        return true;
+        return changedCount > 0;
     }
 }
