@@ -20,8 +20,7 @@ public class BinaryController : Controller
     public IActionResult Index([FromBody] FullFledgedBinaryAction action)
     {
         var solver = new Solver.Solver(action.Initial)
-            .AddStrategy<ConsecutiveOneStrategy>()
-            .AddStrategy<ConsecutiveZeroStrategy>()
+            .AddStrategy<ConsecutivesStrategy>()
             .AddStrategy<GapStrategy>()
             .AddStrategy<LineCountStrategy>();
 
