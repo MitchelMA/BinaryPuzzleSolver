@@ -45,7 +45,9 @@ internal static class Program
             var solver = new Solver.Solver(contents)
                 .AddStrategy<ConsecutivesStrategy>()
                 .AddStrategy<GapStrategy>()
-                .AddStrategy<LineCountStrategy>();
+                .AddStrategy<LineCountStrategy>()
+                .AddStrategy<CompareStrategy>()
+                .AddStrategy<LastResortStrategy>();
 
             var solvedField = solver.Solve(iterationKind);
             Console.WriteLine(solvedField.Display());
